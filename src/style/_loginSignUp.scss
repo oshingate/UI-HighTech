@@ -1,0 +1,38 @@
+//login-sec
+
+.login-sec {
+  background: linear-gradient(to right, #40d0e7, #b588f7);
+  height: 90vh;
+  .sec-heading {
+    color: #00ffff;
+  }
+  form {
+    background: white;
+    padding: 1rem;
+
+    max-width: 400px;
+    margin: 0 auto;
+    border-radius: 10px;
+
+    input {
+      width: 100%;
+      margin: 1rem 0;
+      border-radius: 10px;
+      padding: 0.3rem 0;
+      border: none;
+    }
+    label {
+      font-size: 1rem;
+      font-weight: 700;
+      color: wheat;
+    }
+    span {
+      color: rgb(236, 32, 32);
+      font-size: 0.7rem;
+    }
+  }
+  .btn-pri:hover {
+    background-color: green;
+    color: white;
+  }
+}
