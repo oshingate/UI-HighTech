@@ -1,19 +1,17 @@
 import * as React from 'react';
-import { RouteComponentProps, withRouter } from 'react-router';
+import { useHistory } from 'react-router-dom';
 
 interface IProps {}
 
-const Login: React.FC<IProps & RouteComponentProps> = (props) => {
-  const [errors, seterrors] = React.useState({
+const Login: React.FC<IProps> = (props) => {
+  const history = useHistory();
+  const [errors] = React.useState({
     email: '',
     password: '',
   });
   const [data, setdata] = React.useState({ email: '', password: '' });
 
-  const handleChange = (
-    event: React.ChangeEvent<HTMLInputElement>,
-    field: string
-  ) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>, field: string) => {
     event.preventDefault();
     setdata((prevState) => {
       return {
@@ -61,16 +59,16 @@ const Login: React.FC<IProps & RouteComponentProps> = (props) => {
   };
 
   return (
-    <section className='login-sec'>
-      <div className='container '>
+    <section className="login-sec">
+      <div className="container ">
         <form onSubmit={(event) => handleLoginUser(event)}>
-          <h2 className='sec-heading'>Login Page</h2>
+          <h2 className="sec-heading">Login Page</h2>
           <fieldset>
             <label>Enter Email</label>
             <input
-              type='email'
-              name='email'
-              id='loginEmail'
+              type="email"
+              name="email"
+              id="loginEmail"
               value={data.email}
               onChange={(event) => {
                 handleChange(event, 'email');
@@ -81,9 +79,9 @@ const Login: React.FC<IProps & RouteComponentProps> = (props) => {
           <fieldset>
             <label>Enter Password</label>
             <input
-              type='password'
-              name='password'
-              id='loginPassword'
+              type="password"
+              name="password"
+              id="loginPassword"
               value={data.password}
               onChange={(event) => {
                 handleChange(event, 'password');
@@ -91,8 +89,8 @@ const Login: React.FC<IProps & RouteComponentProps> = (props) => {
             />
             <span>{errors.password}</span>
           </fieldset>
-          <fieldset className='flex center'>
-            <button type='submit' className='btn btn-pri'>
+          <fieldset className="flex center">
+            <button type="submit" className="btn btn-pri">
               Submit
             </button>
           </fieldset>
@@ -102,4 +100,4 @@ const Login: React.FC<IProps & RouteComponentProps> = (props) => {
   );
 };
 
-export default withRouter(Login);
+export default Login;

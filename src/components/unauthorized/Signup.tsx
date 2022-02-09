@@ -1,19 +1,20 @@
 import * as React from 'react';
-import { RouteComponentProps, withRouter } from 'react-router';
+import { useHistory } from 'react-router-dom';
 
 interface IProps {}
 
-const Signup: React.FC<IProps & RouteComponentProps> = () => {
-  const [errors, seterrors] = React.useState({
+const Signup: React.FC<IProps> = () => {
+  const history = useHistory();
+  const [errors] = React.useState({
     email: '',
     username: '',
     password: '',
   });
-  const [data, setdata] = React.useState({
-    email: '',
-    username: '',
-    password: '',
-  });
+  // const [data] = React.useState({
+  //   email: '',
+  //   username: '',
+  //   password: '',
+  // });
 
   const handleUserRegistration = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -130,9 +131,9 @@ const Signup: React.FC<IProps & RouteComponentProps> = () => {
   };
 
   return (
-    <section className='login-sec'>
-      <h2 className='sec-heading'>Sign-Up Page</h2>
-      <div className='container '>
+    <section className="login-sec">
+      <h2 className="sec-heading">Sign-Up Page</h2>
+      <div className="container ">
         <form
           onSubmit={(event) => {
             handleUserRegistration(event);
@@ -141,9 +142,9 @@ const Signup: React.FC<IProps & RouteComponentProps> = () => {
           <fieldset>
             <label>Enter Email *</label>
             <input
-              type='email'
-              name='email'
-              id='loginEmail'
+              type="email"
+              name="email"
+              id="loginEmail"
               onChange={(event) => {
                 handleSignUpError(event.target, 'email');
               }}
@@ -154,9 +155,9 @@ const Signup: React.FC<IProps & RouteComponentProps> = () => {
           <fieldset>
             <label>Enter Username *</label>
             <input
-              type='text'
-              name='username'
-              id='loginUsername'
+              type="text"
+              name="username"
+              id="loginUsername"
               onChange={(event) => {
                 handleSignUpError(event.target, 'username');
               }}
@@ -167,17 +168,17 @@ const Signup: React.FC<IProps & RouteComponentProps> = () => {
           <fieldset>
             <label>Enter Password *</label>
             <input
-              type='text'
-              name='password'
-              id='loginPassword'
+              type="text"
+              name="password"
+              id="loginPassword"
               onChange={(event) => {
                 handleSignUpError(event.target, 'password');
               }}
             />
             <span> {errors.password}</span>
           </fieldset>
-          <fieldset className='flex center'>
-            <button type='submit' className='btn btn-pri'>
+          <fieldset className="flex center">
+            <button type="submit" className="btn btn-pri">
               Submit
             </button>
           </fieldset>
@@ -187,4 +188,4 @@ const Signup: React.FC<IProps & RouteComponentProps> = () => {
   );
 };
 
-export default withRouter(Signup);
+export default Signup;

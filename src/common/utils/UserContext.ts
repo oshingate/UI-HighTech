@@ -8,7 +8,7 @@ interface IuserContextInitialState {
 const userContextInitialState = {
   token: '',
   loggedUser: '',
-  isUserLogged: false,
+  isUserLogged: false
 };
 
 let UserContext = React.createContext<IuserContextInitialState>(

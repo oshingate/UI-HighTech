@@ -1,22 +1,49 @@
+import './style/App.css';
+
 import React from 'react';
-import { Route, Switch } from 'react-router';
+import { Route, Switch } from 'react-router-dom';
+
+import Footer from './common/shared/footer/Footer';
+import Header from './common/shared/header/Header';
+import { USER_URL } from './common/utils/constants';
+import { UserProvider } from './common/utils/UserContext';
 import AuthDashboard from './components/authorized/AuthDashboard';
-import Footer from './components/common components/Footer';
-import Header from './components/common components/Header';
 import Login from './components/unauthorized/Login';
 import Signup from './components/unauthorized/Signup';
 import UnauthDashboard from './components/unauthorized/UnauthDashboard';
-import './style/App.css';
-import { User_URL } from './utils/constants';
-import { UserProvider } from './utils/UserContext';
 
-interface AppProps {}
+interface UnAuthorizedProps {}
+
+const UnAuthorized: React.FC<UnAuthorizedProps> = () => {
+  return (
+    <Switch>
+      <Route path="/" element={UnauthDashboard} />
+      <Route path="/signup" element={Signup} />
+      <Route path="/login" element={Login} />
+    </Switch>
+  );
+};
+
+interface AuthorizedProps {}
+
+const Authorized: React.FC<AuthorizedProps> = () => {
+  return (
+    <>
+      {' '}
+      <Route path="/">
+        <AuthDashboard />
+      </Route>
+    </>
+  );
+};
 
 interface AppState {
   token: string | null;
   loggedUser: any | null;
   isUserLogged: boolean;
 }
+
+interface AppProps {}
 
 class App extends React.Component<AppProps, AppState> {
   constructor(props: AppProps) {
@@ -27,8 +54,8 @@ class App extends React.Component<AppProps, AppState> {
   componentDidMount() {
     let token = localStorage.getItem('hta_auth_token');
 
-    if (token)
-      fetch(User_URL, {
+    if (token) {
+      fetch(USER_URL, {
         method: 'GET',
         headers: {
           Authorization: token,
@@ -36,7 +63,7 @@ class App extends React.Component<AppProps, AppState> {
       })
         .then((res) => res.json())
         .then((loggedUser) => {
-          this.setState((prevState) => {
+          this.setState(() => {
             return {
               token: localStorage.token,
               loggedUser: loggedUser.user,
@@ -44,6 +71,7 @@ class App extends React.Component<AppProps, AppState> {
             };
           });
         });
+    }
   }
 
   // updateLoggedUser = (data) => {
@@ -58,6 +86,7 @@ class App extends React.Component<AppProps, AppState> {
     this.setState({ token: null, loggedUser: null });
     history.push('/');
   };
+
   render() {
     let data = {
       token: this.state.token,
@@ -78,36 +107,5 @@ class App extends React.Component<AppProps, AppState> {
     );
   }
 }
-
-interface UnAuthorizedProps {}
-
-const UnAuthorized: React.FC<UnAuthorizedProps> = () => {
-  return (
-    <Switch>
-      <Route path='/' exact>
-        <UnauthDashboard />
-      </Route>
-      <Route path='/signup' exact>
-        <Signup />
-      </Route>
-      <Route path='/login' exact>
-        <Login />
-      </Route>
-    </Switch>
-  );
-};
-
-interface AuthorizedProps {}
-
-const Authorized: React.FC<AuthorizedProps> = () => {
-  return (
-    <>
-      {' '}
-      <Route path='/'>
-        <AuthDashboard />
-      </Route>
-    </>
-  );
-};
 
 export default App;
